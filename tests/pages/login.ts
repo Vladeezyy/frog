@@ -68,7 +68,7 @@ export default class LoginPage extends BasePage {
         await this.passwordField.waitFor() //wait for element because this field appears after entering the email
         await this.passwordField.fill(configuration.CREATOR_PASS)
         await this.continueBtn.click()
-        await this.page.waitForURL('https://dev.myfaithbase.com/')
+        await this.page.waitForURL('https://dev.myfaithbase.com/321')
     }
 
     async goto(path = ''): Promise<void> {

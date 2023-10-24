@@ -9,12 +9,12 @@ export default defineConfig({
     // workers: process.env.CI ? 1 : undefined,
 
     reporter: [
-        ['list', { printSteps: true }],
         [
-            'html',
+            'allure-playwright',
             {
-                open: 'never',
-                outputFolder: 'docs/',
+                detail: true,
+                outputFolder: 'allure-results',
+                suiteTitle: false,
             },
         ],
     ],
@@ -31,7 +31,7 @@ export default defineConfig({
             name: 'chromium',
             use: {
                 ...devices['Desktop Chrome'],
-                viewport: { width: 1920, height: 1080 },
+                //viewport: { width: 1920, height: 1080 },
                 launchOptions: {
                     slowMo: 2000,
                     args: ['--disable-blink-features=AutomationControlled', '--disable-gpu', '--start-maximized'],
