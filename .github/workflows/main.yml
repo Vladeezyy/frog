@@ -21,6 +21,7 @@ jobs:
     - run: npm ci
     - run: npx playwright install
     - run: npm test
+    - run: allure generate --clean
   
     - uses: actions/upload-artifact@master
       with:
