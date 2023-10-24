@@ -26,7 +26,7 @@ jobs:
       run: npm ci
 
     - name: Run Playwright Tests
-      run: npm run test-playwright  # make sure this script runs "playwright test"
+      run: npx playwright test  # make sure this script runs "playwright test"
 
     - name: Generate Allure Report
       run: npx allure generate --clean
