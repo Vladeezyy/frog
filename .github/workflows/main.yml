@@ -32,13 +32,18 @@ jobs:
       run: npx playwright test  # make sure this script runs "playwright test"
 
     - name: Generate Allure Report
-      run: npx allure generate ./docs --clean  # Generate report in ./docs directory
-
-    - name: Deploy to GitHub Pages
+      uses: simple-elf/allure-report-action@master
+      if: always()
+      with:
+          allure_results: allure-results
+          allure_history: allure-history
+          gh_pages: gh-pages
+          allure_report: allure-report
+          
+    - name: Deploy report to Github Pages
+      if: always()
       uses: peaceiris/actions-gh-pages@v3
       with:
-        deploy_key: ${{ secrets.TEST_SECRET }}
-        publish_dir: ./docs
-        destination_dir: .  # Deploy contents of ./docs to root of gh-pages branch
-        external_repository: ${{ github.repository }}
-        keep_files: false  # Set to false to cleanup old reports, set to true to keep
+          github_token: ${{ secrets.TEST_SECRET }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
