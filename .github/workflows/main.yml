@@ -24,19 +24,21 @@ jobs:
 
     - name: Install Dependencies
       run: npm ci
-
+      
     - name: Install Playwright Browsers
       run: npx playwright install
 
     - name: Run Playwright Tests
-      run: npx playwright test  # make sure this script runs "playwright test"
+      run: npm run test-playwright  # make sure this script runs "playwright test"
 
     - name: Generate Allure Report
-      run: npx allure generate --clean
+      run: npx allure generate ./docs --clean  # Generate report in ./docs directory
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         deploy_key: ${{ secrets.TEST_SECRET }}
-        publish_dir: ./allure-report  # update this path according to where your allure report is generated
-        keep_files: true
+        publish_dir: ./docs
+        destination_dir: .  # Deploy contents of ./docs to root of gh-pages branch
+        external_repository: ${{ github.repository }}
+        keep_files: false  # Set to false to cleanup old reports, set to true to keep
